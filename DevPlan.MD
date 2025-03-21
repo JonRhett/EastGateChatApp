@@ -6,18 +6,113 @@ This is a detailed and a comprehensive development plan for your church communic
 
 The EastGate Communication Hub will be built using the following technologies:
 
-- Expo / React Native: For building the mobile app with Skia and Reanimated
-- Jest for rigorous testing
-- Supabase: For backend services including authentication, database, storage, and cloud messaging.
-- Supabase for hosting the web app / admin panel.
-- Expo / React Native Skia: For advanced graphics and animations.
-- Expo Router: For navigation and routing.
-- Expo Web: For building a web admin panel.
-- Expo EAS Build: For building and deploying the app.
+### Core Framework
+- Expo / React Native: For building the mobile app
+- TypeScript: For type-safe development
+- Expo Router: For navigation and routing
+- Expo Web: For building a web admin panel
+
+### UI & Graphics Stack
+- React Native Reanimated: For smooth, native-driven animations
+- React Native Skia: For advanced graphics and custom drawings
+- React Native Gesture Handler: For fluid, native-feeling gestures
+- React Native SVG: For scalable vector graphics
+- NativeWind (Tailwind CSS): For consistent, modern styling
+- React Native Paper: Material Design components with customization
+- React Native Safe Area Context: For proper layout on all devices
+- React Native Bottom Sheet: For elegant bottom sheets and modals
+
+### Theme System
+- Centralized Theme Configuration (`constants/theme/index.ts`)
+  - Color system with light/dark variants
+  - Typography system with custom fonts
+  - Spacing and layout system
+  - Shadow and border radius system
+  - Animation configuration
+- Theme Context Provider (`contexts/ThemeContext.tsx`)
+  - Theme state management
+  - System theme integration
+  - Theme switching functionality
+- Theme Style Hooks (`hooks/useThemeStyles.ts`)
+  - Pre-built style hooks for common components
+  - Text styles (h1, h2, h3, body, caption)
+  - Container styles (card, container, row, center)
+  - Button styles (primary, secondary)
+  - Input styles
+  - List styles
+- Custom Component Library
+  - Themed components with animations
+  - Consistent styling across the app
+  - Dark/Light mode support
+
+### Backend & Services
+- Supabase: For backend services including authentication, database, storage, and cloud messaging
+- Supabase for hosting the web app / admin panel
+
+### Development & Deployment
+- Expo EAS Build: For building and deploying the app
 - Expo EAS Configuring your project with eas.json
 - Expo EAS Building app binaries with eas build
 - Expo EAS Submitting to stores with eas submit
 - Expo EAS Deploying updates with eas update
+
+## Visual Design System
+
+### Color Palette
+- Primary: Deep blue-gray (#2C3E50) - Represents stability and trust
+  - Light: #34495E
+  - Dark: #1A252F
+- Secondary: Deep red (#C0392B) - Represents warmth and community
+  - Light: #E74C3C
+  - Dark: #922B21
+- Accent: Gold (#D4AF37) - Represents reverence and tradition
+  - Light: #F1C40F
+  - Dark: #B7950B
+- Supporting Colors:
+  - Background: Light (#F5F6FA) / Dark (#1A1A1A)
+  - Surface: Light (#FFFFFF) / Dark (#2D2D2D)
+  - Text: Light (#2C3E50) / Dark (#ECF0F1)
+  - Status Colors: Error, Success, Warning, Info
+
+### Typography System
+- Primary Font: Playfair Display
+  - Used for headings (h1, h2, h3)
+  - Elegant serif font for visual hierarchy
+- Secondary Font: Inter
+  - Used for body text and general content
+  - Clean sans-serif for readability
+- Accent Font: Montserrat
+  - Used for accents and special elements
+  - Modern sans-serif for visual interest
+- Font Sizes:
+  - h1: 32px
+  - h2: 24px
+  - h3: 20px
+  - h4: 18px
+  - body: 16px
+  - caption: 14px
+
+### Design Principles
+- Modern yet reverent
+- Professional yet welcoming
+- Clean and uncluttered
+- Accessible and readable
+- Consistent across platforms
+- Smooth animations and transitions
+- Responsive and adaptive layouts
+- Intuitive navigation patterns
+- Clear visual hierarchy
+- Thoughtful use of white space
+
+### Component Design System
+- Consistent spacing system (xs, sm, md, lg, xl, xxl)
+- Standardized border radius (sm, md, lg, xl, round)
+- Layered shadow system (light, medium, dark)
+- Responsive layout breakpoints
+- Animation durations and easing curves
+- Interactive state styles (hover, active, disabled)
+- Loading and error states
+- Empty states and placeholders
 
 ## Visual Design Considerations
 
@@ -66,7 +161,7 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 - [X] 1.1.1. Create a new Expo project
 - [X] 1.1.2. Set up VS Code with necessary extensions
 - [X] 1.1.3. Initialize Git repository
-- [ ] 1.1.4. Configure SupaBase project
+- [X] 1.1.4. Configure SupaBase project
 - [ ] 1.1.5. Install required dependencies (navigation, UI components)
 - [ ] 1.1.6. Establish project structure and architecture
 

@@ -1,6 +1,6 @@
 # EastGate Chat App - Scaffold
 
-This document provides a comprehensive overview of the project's PROPOSED file structure.
+This document provides a comprehensive overview of the project's file structure.
 
 ## Root Directory
 - `package.json` - Project dependencies and scripts
@@ -14,6 +14,8 @@ This document provides a comprehensive overview of the project's PROPOSED file s
 - `.gitignore` - Specifies files to be ignored by Git
 - `.env` - Environment variables
 - `eas.json` - Expo Application Services configuration
+- `tailwind.config.js` - Tailwind CSS configuration
+- `postcss.config.js` - PostCSS configuration
 
 ## Configuration Directories
 - `.expo/` - Expo configuration files
@@ -74,6 +76,12 @@ This document provides a comprehensive overview of the project's PROPOSED file s
     - `Button.tsx` - Custom button component
     - `Input.tsx` - Custom input component
     - `Modal.tsx` - Custom modal component
+    - `Card.tsx` - Themed card component
+    - `List.tsx` - Themed list component
+    - `Badge.tsx` - Status badge component
+    - `Avatar.tsx` - User avatar component
+    - `Loading.tsx` - Loading indicator
+    - `Error.tsx` - Error display component
   - `common/` - Common components
     - `Collapsible.tsx` - Collapsible component
     - `ExternalLink.tsx` - External link component
@@ -85,16 +93,25 @@ This document provides a comprehensive overview of the project's PROPOSED file s
   - `__tests__/` - Component tests
     - `__snapshots__/` - Test snapshots
 
-## Services Directory
-- `services/`
-  - `supabase/` - Supabase related services
-    - `client.ts` - Supabase client configuration
-    - `auth.ts` - Authentication service
-    - `chat.ts` - Chat service
-    - `storage.ts` - Storage service
-  - `notifications/` - Push notification services
-    - `push.ts` - Push notification handling
-    - `emergency.ts` - Emergency alerts
+## Theme System
+- `constants/`
+  - `theme/`
+    - `index.ts` - Main theme configuration
+    - `colors.ts` - Color system
+    - `typography.ts` - Typography system
+    - `spacing.ts` - Spacing system
+    - `shadows.ts` - Shadow system
+    - `animation.ts` - Animation configuration
+  - `Colors.ts` - Color definitions
+  - `Config.ts` - App configuration
+  - `Api.ts` - API endpoints
+
+## Contexts Directory
+- `contexts/`
+  - `ThemeContext.tsx` - Theme context provider
+  - `AuthContext.tsx` - Authentication context
+  - `ChatContext.tsx` - Chat state management
+  - `MediaContext.tsx` - Media state management
 
 ## Hooks Directory
 - `hooks/`
@@ -104,13 +121,9 @@ This document provides a comprehensive overview of the project's PROPOSED file s
   - `useNotifications.ts` - Notification hooks
   - `useColorScheme.ts` - Theme hooks
   - `useThemeColor.ts` - Color utility hooks
-
-## Constants Directory
-- `constants/`
-  - `Colors.ts` - Color definitions
-  - `Theme.ts` - Theme configurations
-  - `Config.ts` - App configuration
-  - `Api.ts` - API endpoints
+  - `useThemeStyles.ts` - Theme style hooks
+  - `useAnimation.ts` - Animation hooks
+  - `useGesture.ts` - Gesture handling hooks
 
 ## Utils Directory
 - `utils/`
@@ -118,13 +131,25 @@ This document provides a comprehensive overview of the project's PROPOSED file s
   - `formatting.ts` - Data formatting
   - `permissions.ts` - Permission helpers
   - `storage.ts` - Local storage helpers
+  - `theme.ts` - Theme utilities
+  - `animation.ts` - Animation utilities
 
 ## Assets Directory
 - `assets/`
   - `fonts/`
-    - `SpaceMono-Regular.ttf` - Space Mono font
+    - `PlayfairDisplay-Regular.ttf` - Primary font
+    - `PlayfairDisplay-Bold.ttf` - Primary font bold
+    - `Inter-Regular.ttf` - Secondary font
+    - `Inter-Medium.ttf` - Secondary font medium
+    - `Inter-SemiBold.ttf` - Secondary font semibold
+    - `Inter-Bold.ts` - Secondary font bold
+    - `Montserrat-Regular.ttf` - Accent font
+    - `Montserrat-Medium.ttf` - Accent font medium
+    - `Montserrat-SemiBold.ttf` - Accent font semibold
+    - `Montserrat-Bold.ttf` - Accent font bold
   - `images/` - App images
   - `icons/` - App icons
+  - `animations/` - Lottie animations
 
 ## Types Directory
 - `types/`
@@ -133,6 +158,7 @@ This document provides a comprehensive overview of the project's PROPOSED file s
   - `media.ts` - Media types
   - `user.ts` - User related types
   - `event.ts` - Calendar event types
+  - `theme.ts` - Theme types
 
 ## Scripts Directory
 - `scripts/`

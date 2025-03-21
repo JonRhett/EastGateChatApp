@@ -1,6 +1,11 @@
+/**
+ * Tabs layout component.
+ */
+
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
+import { useTheme } from '@/contexts/ThemeContext';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -8,7 +13,8 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-export default function TabLayout() {
+export default function TabsLayout() {
+  const themeContext = useTheme();
   const colorScheme = useColorScheme();
 
   return (
@@ -25,6 +31,10 @@ export default function TabLayout() {
           },
           default: {},
         }),
+        headerStyle: {
+          backgroundColor: themeContext.colors.background[themeContext.mode],
+        },
+        headerTintColor: themeContext.colors.text[themeContext.mode],
       }}>
       <Tabs.Screen
         name="index"
