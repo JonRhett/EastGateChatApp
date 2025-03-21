@@ -77,45 +77,67 @@ export const profileService = {
     base64Image: string, 
     contentType: string = 'image/jpeg'
   ): Promise<string> {
-    const { data: session } = await supabase.auth.getSession();
-    
-    if (!session?.session?.user) {
-      throw new Error('No authenticated user found');
-    }
-    
-    const userId = session.session.user.id;
-    const filePath = `${userId}/avatar`;
-    
-    // Remove data URL prefix if present (e.g., "data:image/jpeg;base64,")
-    const base64Data = base64Image.includes('base64,') 
-      ? base64Image.split('base64,')[1] 
-      : base64Image;
-    
-    // Convert base64 to ArrayBuffer
-    const arrayBuffer = decode(base64Data);
-    
-    // Upload the image
-    const { data, error } = await supabase.storage
-      .from('profile_images')
-      .upload(filePath, arrayBuffer, {
-        contentType,
-        upsert: true
-      });
+    try {
+      const { data: session } = await supabase.auth.getSession();
       
-    if (error) {
-      console.error('Error uploading avatar:', error);
+      if (!session?.session?.user) {
+        throw new Error('No authenticated user found');
+      }
+      
+      const userId = session.session.user.id;
+      const filePath = `${userId}/avatar`;
+      
+      // Log the start of upload process
+      console.log('Starting avatar upload process');
+      
+      // Remove data URL prefix if present (e.g., "data:image/jpeg;base64,")
+      const base64Data = base64Image.includes('base64,') 
+        ? base64Image.split('base64,')[1] 
+        : base64Image;
+      
+      console.log('Base64 data prepared');
+      
+      // Convert base64 to ArrayBuffer
+      let arrayBuffer;
+      try {
+        arrayBuffer = decode(base64Data);
+        console.log('ArrayBuffer created successfully');
+      } catch (err) {
+        console.error('Error decoding base64:', err);
+        throw new Error('Failed to decode image data');
+      }
+      
+      // Upload the image
+      console.log('Uploading to storage bucket: profile_images');
+      const { data, error } = await supabase.storage
+        .from('profile_images')
+        .upload(filePath, arrayBuffer, {
+          contentType,
+          upsert: true
+        });
+        
+      if (error) {
+        console.error('Error uploading avatar:', error);
+        throw error;
+      }
+      
+      console.log('Upload successful, getting public URL');
+      
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('profile_images')
+        .getPublicUrl(filePath);
+      
+      console.log('Public URL retrieved:', publicUrl);
+      
+      // Update profile with new avatar URL
+      await this.updateProfile({ avatar_url: publicUrl });
+      
+      return publicUrl;
+    } catch (error) {
+      console.error('Avatar upload failed:', error);
       throw error;
     }
-    
-    // Get public URL
-    const { data: { publicUrl } } = supabase.storage
-      .from('profile_images')
-      .getPublicUrl(filePath);
-      
-    // Update profile with new avatar URL
-    await this.updateProfile({ avatar_url: publicUrl });
-    
-    return publicUrl;
   },
   
   /**

@@ -1,6 +1,7 @@
 import { supabase } from './client';
 import { SignUpData, LoginCredentials, ValidationResult } from '../../types/auth';
 import { Profile } from '../../types/profile';
+import { getDevRedirectUrl } from '@/utils/devHelper';
 
 /**
  * Email validation regex pattern
@@ -114,7 +115,7 @@ export const authService = {
       email,
       password,
       options: {
-        emailRedirectTo: 'eastgatechurchapp://login',
+        emailRedirectTo: 'exp://192.168.1.2:8081/--/login',
         data: {
           email_verified: false
         }
@@ -180,7 +181,7 @@ export const authService = {
       type: 'signup',
       email,
       options: {
-        emailRedirectTo: 'eastgatechurchapp://login',
+        emailRedirectTo: 'exp://192.168.1.2:8081/--/login',
       }
     });
     

@@ -19,8 +19,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import * as ImagePicker from 'expo-image-picker';
-import * as ImageManipulator from 'expo-image-manipulator';
+import { ProfileImagePicker } from '@/components/media/ProfileImagePicker';
 import { router } from 'expo-router';
 
 import { ThemedText } from '@/components/ThemedText';
@@ -110,142 +109,45 @@ export const ProfileScreen = () => {
     }
   };
   
-  // Take a photo with the camera
-  const handleTakePhoto = async () => {
-    try {
-      const { status } = await ImagePicker.requestCameraPermissionsAsync();
-      
-      if (status !== 'granted') {
-        Alert.alert(
-          'Camera Permission Required',
-          'Please grant camera permission to take a profile photo'
-        );
-        return;
-      }
-      
-      const result = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.7,
-      });
-      
-      if (!result.canceled && result.assets && result.assets.length > 0) {
-        // Process and crop the image
-        await processImage(result.assets[0].uri);
-      }
-    } catch (error) {
-      console.error('Error taking photo:', error);
-      Alert.alert('Error', 'Unable to take photo. Please try again.');
-    }
-  };
-  
-  // Pick an image from the photo library
-  const handlePickImage = async () => {
-    try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      
-      if (status !== 'granted') {
-        Alert.alert(
-          'Photo Library Permission Required',
-          'Please grant photo library permission to select a profile photo'
-        );
-        return;
-      }
-      
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 0.7,
-      });
-      
-      if (!result.canceled && result.assets && result.assets.length > 0) {
-        // Process and crop the image
-        await processImage(result.assets[0].uri);
-      }
-    } catch (error) {
-      console.error('Error picking image:', error);
-      Alert.alert('Error', 'Unable to select image. Please try again.');
-    }
-  };
-  
-  // Process, resize and upload the image
-  const processImage = async (uri: string) => {
-    try {
-      setIsLoading(true);
-      
-      // Resize and crop the image to a square
-      const manipResult = await ImageManipulator.manipulateAsync(
-        uri,
-        [{ resize: { width: 400, height: 400 } }],
-        { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
-      );
-      
-      // Convert to base64
-      const response = await fetch(manipResult.uri);
-      const blob = await response.blob();
-      
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = async () => {
-          try {
-            const base64data = reader.result as string;
-            
-            // Upload to Supabase
-            const avatarUrl = await uploadAvatar(base64data);
-            setAvatarUri(avatarUrl);
-            setIsLoading(false);
-            resolve(avatarUrl);
-          } catch (err) {
-            setIsLoading(false);
-            console.error('Error uploading avatar:', err);
-            Alert.alert('Error', 'Failed to upload profile picture. Please try again.');
-            reject(err);
-          }
-        };
-        reader.onerror = () => {
-          setIsLoading(false);
-          reject(new Error('Failed to convert image'));
-        };
-        reader.readAsDataURL(blob);
-      });
-    } catch (error) {
-      setIsLoading(false);
-      console.error('Error processing image:', error);
-      Alert.alert('Error', 'Unable to process image. Please try again.');
-    }
-  };
-  
   // Remove the profile picture
   const handleRemovePhoto = async () => {
     try {
-      if (!avatarUri) return;
+      if (!avatarUri) return Promise.resolve();
       
-      Alert.alert(
-        'Remove Profile Picture',
-        'Are you sure you want to remove your profile picture?',
-        [
-          { text: 'Cancel', style: 'cancel' },
-          {
-            text: 'Remove',
-            style: 'destructive',
-            onPress: async () => {
-              setIsLoading(true);
-              try {
-                await deleteAvatar();
-                setAvatarUri(null);
-              } catch (error) {
-                console.error('Error removing profile picture:', error);
-                Alert.alert('Error', 'Failed to remove profile picture');
-              } finally {
-                setIsLoading(false);
-              }
+      return new Promise<void>((resolve, reject) => {
+        Alert.alert(
+          'Remove Profile Picture',
+          'Are you sure you want to remove your profile picture?',
+          [
+            { 
+              text: 'Cancel', 
+              style: 'cancel',
+              onPress: () => resolve()
             },
-          },
-        ]
-      );
+            {
+              text: 'Remove',
+              style: 'destructive',
+              onPress: async () => {
+                setIsLoading(true);
+                try {
+                  await deleteAvatar();
+                  setAvatarUri(null);
+                  resolve();
+                } catch (error) {
+                  console.error('Error removing profile picture:', error);
+                  Alert.alert('Error', 'Failed to remove profile picture');
+                  reject(error);
+                } finally {
+                  setIsLoading(false);
+                }
+              },
+            },
+          ]
+        );
+      });
     } catch (error) {
       console.error('Error removing photo:', error);
+      return Promise.reject(error);
     }
   };
   
@@ -323,45 +225,22 @@ export const ProfileScreen = () => {
           <ThemedView style={styles.profileCard}>
             {/* Profile picture section */}
             <View style={styles.avatarSection}>
-              <View style={styles.avatarContainer}>
-                {avatarUri ? (
-                  <Image 
-                    source={{ uri: avatarUri }}
-                    style={styles.avatar}
-                  />
-                ) : (
-                  <View style={styles.avatarPlaceholder}>
-                    <Feather name="user" size={50} color="#8D7361" />
-                  </View>
-                )}
-                
-                {isEditing && (
-                  <View style={styles.avatarOverlay}>
-                    <TouchableOpacity 
-                      style={styles.avatarAction}
-                      onPress={handleTakePhoto}
-                    >
-                      <Feather name="camera" size={22} color="#F9F6F2" />
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity 
-                      style={styles.avatarAction}
-                      onPress={handlePickImage}
-                    >
-                      <Feather name="image" size={22} color="#F9F6F2" />
-                    </TouchableOpacity>
-                    
-                    {avatarUri && (
-                      <TouchableOpacity 
-                        style={[styles.avatarAction, styles.avatarRemove]}
-                        onPress={handleRemovePhoto}
-                      >
-                        <Feather name="trash-2" size={22} color="#F9F6F2" />
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                )}
-              </View>
+              <ProfileImagePicker 
+                avatarUrl={avatarUri}
+                onImageSelected={async (base64Image) => {
+                  try {
+                    const url = await uploadAvatar(base64Image);
+                    setAvatarUri(url);
+                    return Promise.resolve();
+                  } catch (error) {
+                    console.error('Error in uploading avatar:', error);
+                    return Promise.reject(error);
+                  }
+                }}
+                onImageRemoved={handleRemovePhoto}
+                size={120}
+                editable={isEditing}
+              />
               
               <ThemedText variant="h3" style={styles.profileName}>
                 {profile?.first_name || ''} {profile?.last_name || ''}

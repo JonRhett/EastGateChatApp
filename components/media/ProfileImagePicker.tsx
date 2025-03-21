@@ -99,43 +99,61 @@ export const ProfileImagePicker = ({
     try {
       setIsLoading(true);
       
+      console.log('Starting image processing for URI:', uri);
+      
       // Resize and crop the image to a square
       const manipResult = await ImageManipulator.manipulateAsync(
         uri,
-        [{ resize: { width: 400, height: 400 } }],
-        { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
+        [{ resize: { width: 300, height: 300 } }],
+        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
       );
       
-      // Convert to base64
-      const response = await fetch(manipResult.uri);
-      const blob = await response.blob();
+      console.log('Image manipulated successfully, URI:', manipResult.uri);
       
-      return new Promise<void>((resolve, reject) => {
+      // Convert to base64
+      try {
+        const response = await fetch(manipResult.uri);
+        const blob = await response.blob();
+        console.log('Blob created, size:', blob.size);
+        
         const reader = new FileReader();
-        reader.onload = async () => {
-          try {
-            const base64data = reader.result as string;
-            
-            // Call the onImageSelected callback with the base64 data
-            await onImageSelected(base64data);
-            setIsLoading(false);
-            resolve();
-          } catch (err) {
-            setIsLoading(false);
-            console.error('Error with selected image:', err);
-            Alert.alert('Error', 'Failed to process profile picture. Please try again.');
-            reject(err);
-          }
-        };
-        reader.onerror = () => {
-          setIsLoading(false);
-          reject(new Error('Failed to convert image'));
-        };
-        reader.readAsDataURL(blob);
-      });
+        
+        // Wrap the FileReader in a promise
+        const base64Promise = new Promise<string>((resolve, reject) => {
+          reader.onload = () => {
+            try {
+              const base64data = reader.result as string;
+              console.log('Base64 conversion successful, length:', base64data.length);
+              resolve(base64data);
+            } catch (err) {
+              console.error('Error in reader.onload:', err);
+              reject(err);
+            }
+          };
+          
+          reader.onerror = (error) => {
+            console.error('FileReader error:', error);
+            reject(new Error('Failed to convert image to base64'));
+          };
+          
+          reader.readAsDataURL(blob);
+        });
+        
+        // Wait for the base64 data and upload it
+        const base64data = await base64Promise;
+        console.log('Calling onImageSelected with base64 data');
+        await onImageSelected(base64data);
+        console.log('Image upload completed successfully');
+        setIsLoading(false);
+        
+      } catch (err) {
+        console.error('Error in fetch/blob/base64 conversion:', err);
+        setIsLoading(false);
+        Alert.alert('Error', 'Failed to process image data. Please try again.');
+      }
     } catch (error) {
+      console.error('Error in image manipulation:', error);
       setIsLoading(false);
-      console.error('Error processing image:', error);
       Alert.alert('Error', 'Unable to process image. Please try again.');
     }
   };

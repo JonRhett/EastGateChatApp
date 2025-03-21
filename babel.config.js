@@ -12,8 +12,7 @@ module.exports = function (api) {
         "safe": false,
         "allowUndefined": true
       }],
-      // Required for expo-router
-      'expo-router/babel',
+      // 'expo-router/babel' removed as it's deprecated in SDK 50+
       // Support for alias imports
       [
         'module-resolver',
