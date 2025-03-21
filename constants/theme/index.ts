@@ -1,7 +1,6 @@
 /**
- * EastGate Church App Theme System
- * This is the central configuration for all theming aspects of the application.
- * Changes here will affect the entire application's appearance.
+ * Theme configuration for the EastGate Church app
+ * Centralizes all theme-related configurations
  */
 
 import { Dimensions } from 'react-native';
@@ -11,46 +10,51 @@ const { width, height } = Dimensions.get('window');
 // Color System
 export const colors = {
   primary: {
-    main: '#2C3E50', // Deep blue-gray - represents stability and trust
-    light: '#34495E',
-    dark: '#1A252F',
+    main: '#2C4251', // Navy blue-gray - represents stability and tradition
+    light: '#8B8982', // Warm gray
+    dark: '#041B15', // Deep forest green
   },
   secondary: {
-    main: '#C0392B', // Deep red - represents warmth and community
-    light: '#E74C3C',
-    dark: '#922B21',
+    main: '#6B2737', // Deep burgundy - represents warmth and community
+    light: '#8B8982', // Warm gray
+    dark: '#041B15', // Deep forest green
   },
   accent: {
-    main: '#D4AF37', // Gold - represents reverence and tradition
-    light: '#F1C40F',
-    dark: '#B7950B',
+    main: '#8B8982', // Warm gray - represents warmth and approachability
+    light: '#FFFFFF', // Pure white
+    dark: '#2C4251', // Navy blue-gray
   },
   background: {
-    light: '#F5F6FA',
-    dark: '#1A1A1A',
+    light: '#FFFFFF',
+    dark: '#041B15',
   },
   surface: {
     light: '#FFFFFF',
-    dark: '#2D2D2D',
+    dark: '#2C4251',
   },
   text: {
-    light: '#2C3E50',
-    dark: '#ECF0F1',
+    light: '#2C4251',
+    dark: '#FFFFFF',
   },
   status: {
-    error: '#E74C3C',
-    success: '#2ECC71',
-    warning: '#F1C40F',
-    info: '#3498DB',
+    error: '#6B2737',
+    success: '#041B15',
+    warning: '#8B8982',
+    info: '#2C4251',
   },
   border: {
-    light: '#E1E8ED',
-    dark: '#404040',
+    light: '#8B8982',
+    dark: '#2C4251',
   },
   overlay: {
-    light: 'rgba(0, 0, 0, 0.1)',
-    dark: 'rgba(0, 0, 0, 0.3)',
+    light: 'rgba(4, 27, 21, 0.1)',
+    dark: 'rgba(4, 27, 21, 0.3)',
   },
+  gradients: {
+    primary: ['#2C4251', '#041B15'],
+    secondary: ['#6B2737', '#041B15'],
+    light: ['#FFFFFF', '#8B8982']
+  }
 } as const;
 
 // Typography System
@@ -82,6 +86,44 @@ export const typography = {
     body: 24,
     caption: 20,
   },
+  textStyles: {
+    h1: {
+      fontFamily: 'Playfair Display',
+      fontSize: 32,
+      fontWeight: '700',
+      lineHeight: 40,
+    },
+    h2: {
+      fontFamily: 'Playfair Display',
+      fontSize: 24,
+      fontWeight: '600',
+      lineHeight: 32,
+    },
+    h3: {
+      fontFamily: 'Playfair Display',
+      fontSize: 20,
+      fontWeight: '600',
+      lineHeight: 28,
+    },
+    body: {
+      fontFamily: 'Inter',
+      fontSize: 16,
+      fontWeight: '400',
+      lineHeight: 24,
+    },
+    caption: {
+      fontFamily: 'Inter',
+      fontSize: 14,
+      fontWeight: '400',
+      lineHeight: 20,
+    },
+    button: {
+      fontFamily: 'Inter',
+      fontSize: 16,
+      fontWeight: '600',
+      lineHeight: 24,
+    },
+  }
 } as const;
 
 // Spacing System

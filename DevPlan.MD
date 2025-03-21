@@ -9,7 +9,7 @@ The EastGate Communication Hub will be built using the following technologies:
 ### Core Framework
 - Expo / React Native: For building the mobile app
 - TypeScript: For type-safe development
-- Expo Router: For navigation and routing
+- React Navigation: For navigation and routing
 - Expo Web: For building a web admin panel
 
 ### UI & Graphics Stack
@@ -162,8 +162,9 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 - [X] 1.1.2. Set up VS Code with necessary extensions
 - [X] 1.1.3. Initialize Git repository
 - [X] 1.1.4. Configure SupaBase project
-- [ ] 1.1.5. Install required dependencies (navigation, UI components)
-- [ ] 1.1.6. Establish project structure and architecture
+- [X] 1.1.5. Install required dependencies (navigation, UI components)
+- [X] 1.1.6. Establish project structure and architecture
+- [X] 1.1.7. Create basic Hello World app to verify setup
 
 #### Phase 1.2: Authentication System
 
@@ -350,6 +351,9 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 #### Phase 10.1: Mobile App Deployment
 
 - [ ] 10.1.1. Configure Expo EAS Build for iOS and Android
+  - Enable New Architecture by setting "newArchEnabled": true in app.json
+  - Test builds with New Architecture enabled
+  - Document any necessary code adjustments for New Architecture compatibility
 - [ ] 10.1.2. Prepare app store listings and screenshots
 - [ ] 10.1.3. Create privacy policy and terms of service
 - [ ] 10.1.4. Submit apps to App Store and Google Play

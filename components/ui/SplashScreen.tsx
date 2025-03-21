@@ -1,18 +1,20 @@
 /**
- * Custom splash screen component with animated graphics and smooth transitions.
- * Uses Reanimated for animations and Skia for custom graphics.
+ * SplashScreen Component
+ * 
+ * A beautiful, color-theory compliant splash screen for the EastGate Church app.
+ * Uses the church's established color palette and typography system.
  */
 
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { 
   useAnimatedStyle, 
   withSpring, 
   withTiming,
   useSharedValue,
 } from 'react-native-reanimated';
-import { useTheme } from '@/contexts/ThemeContext';
-import { useTextStyles, useContainerStyles } from '@/hooks/useThemeStyles';
+import { colors, typography, spacing } from '../../constants/theme';
 
 const { width, height } = Dimensions.get('window');
 
@@ -21,46 +23,35 @@ interface SplashScreenProps {
 }
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onAnimationComplete }) => {
-  const { theme } = useTheme();
-  const textStyles = useTextStyles();
-  const containerStyles = useContainerStyles();
-
-  // Animation values
-  const scale = useSharedValue(0.8);
   const opacity = useSharedValue(0);
+  const scale = useSharedValue(0.3);
 
-  // Animated styles
-  const containerAnimatedStyle = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
       opacity: opacity.value,
+      transform: [{ scale: scale.value }],
     };
   });
 
   useEffect(() => {
-    // Start animations
     opacity.value = withTiming(1, { duration: 1000 });
     scale.value = withSpring(1, { damping: 15 });
 
-    // Trigger completion callback after animations
-    const timer = setTimeout(() => {
-      onAnimationComplete();
-    }, 2000);
-
+    const timer = setTimeout(onAnimationComplete, 2000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <View style={[styles.container, containerStyles.container]}>
-      <Animated.View style={[styles.content, containerAnimatedStyle]}>
-        <Animated.Text style={[styles.title, textStyles.h1]}>
-          EastGate
-        </Animated.Text>
-        <Animated.Text style={[styles.subtitle, textStyles.body]}>
-          Church Communication Hub
-        </Animated.Text>
+    <LinearGradient
+      colors={[...colors.gradients.primary]}
+      style={styles.container}
+    >
+      <Animated.View style={[styles.content, animatedStyle]}>
+        <Text style={styles.title}>EastGate</Text>
+        <Text style={styles.subtitle}>Church</Text>
+        <Text style={styles.tagline}>Connecting Hearts, Building Community</Text>
       </Animated.View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -69,22 +60,27 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.primary.dark,
   },
   content: {
     alignItems: 'center',
-    zIndex: 1,
   },
   title: {
-    fontSize: 48,
-    marginBottom: 8,
+    ...typography.textStyles.h1,
+    color: colors.accent.main,
+    marginBottom: spacing.sm,
     textAlign: 'center',
-    color: '#2C3E50',
   },
   subtitle: {
-    fontSize: 18,
+    ...typography.textStyles.h2,
+    color: colors.primary.light,
+    marginBottom: spacing.md,
     textAlign: 'center',
-    opacity: 0.8,
-    color: '#2C3E50',
+  },
+  tagline: {
+    ...typography.textStyles.body,
+    color: colors.accent.dark,
+    textAlign: 'center',
+    marginTop: spacing.sm,
   },
 }); 
