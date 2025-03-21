@@ -62,7 +62,7 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 
 #### Phase 1.1: Environment Setup
 
-- [X] 1.1.1. Create a new Expo project
+- [ ] 1.1.1. Create a new Expo project
 - [ ] 1.1.2. Set up VS Code with necessary extensions
 - [ ] 1.1.3. Initialize Git repository
 - [ ] 1.1.4. Configure SupaBase project
