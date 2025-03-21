@@ -11,10 +11,10 @@ The theme system is designed to provide a consistent and flexible design languag
 The color system is defined in `constants/theme/colors.ts`:
 ```typescript
 export const colors = {
-  primary: '#007AFF',
-  secondary: '#5856D6',
-  background: '#FFFFFF',
-  text: '#000000',
+  primary: '#2c4251',
+  secondary: '#b8b982',
+  background: '#q41b15',
+  text: '#ffffff',
   // ... other colors
 };
 ```

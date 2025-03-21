@@ -73,10 +73,10 @@ export const typography = {
     caption: 14,
   },
   weights: {
-    regular: '400',
-    medium: '500',
-    semibold: '600',
-    bold: '700',
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
   },
   lineHeights: {
     h1: 40,
@@ -90,39 +90,39 @@ export const typography = {
     h1: {
       fontFamily: 'Playfair Display',
       fontSize: 32,
-      fontWeight: '700',
+      fontWeight: 700,
       lineHeight: 40,
     },
     h2: {
       fontFamily: 'Playfair Display',
       fontSize: 24,
-      fontWeight: '600',
+      fontWeight: 600,
       lineHeight: 32,
     },
     h3: {
       fontFamily: 'Playfair Display',
       fontSize: 20,
-      fontWeight: '600',
+      fontWeight: 600,
       lineHeight: 28,
     },
     body: {
       fontFamily: 'Inter',
       fontSize: 16,
-      fontWeight: '400',
+      fontWeight: 400,
       lineHeight: 24,
     },
     caption: {
       fontFamily: 'Inter',
       fontSize: 14,
-      fontWeight: '400',
+      fontWeight: 400,
       lineHeight: 20,
     },
     button: {
       fontFamily: 'Inter',
       fontSize: 16,
-      fontWeight: '600',
+      fontWeight: 600,
       lineHeight: 24,
-    },
+    }
   }
 } as const;
 
@@ -205,6 +205,7 @@ export const animation = {
 } as const;
 
 // Theme Types
+export type ThemeMode = 'light' | 'dark';
 export type ThemeColors = typeof colors;
 export type ThemeTypography = typeof typography;
 export type ThemeSpacing = typeof spacing;
@@ -212,9 +213,6 @@ export type ThemeBorderRadius = typeof borderRadius;
 export type ThemeShadows = typeof shadows;
 export type ThemeLayout = typeof layout;
 export type ThemeAnimation = typeof animation;
-
-// Theme Mode
-export type ThemeMode = 'light' | 'dark';
 
 // Theme Context Type
 export interface ThemeContextType {

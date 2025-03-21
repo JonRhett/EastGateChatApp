@@ -9,7 +9,7 @@ The EastGate Communication Hub will be built using the following technologies:
 ### Core Framework
 - Expo / React Native: For building the mobile app
 - TypeScript: For type-safe development
-- React Navigation: For navigation and routing
+- Expo Router: For file-based navigation and routing (replaces React Navigation)
 - Expo Web: For building a web admin panel
 
 ### UI & Graphics Stack
@@ -59,20 +59,24 @@ The EastGate Communication Hub will be built using the following technologies:
 ## Visual Design System
 
 ### Color Palette
-- Primary: Deep blue-gray (#2C3E50) - Represents stability and trust
-  - Light: #34495E
-  - Dark: #1A252F
-- Secondary: Deep red (#C0392B) - Represents warmth and community
-  - Light: #E74C3C
-  - Dark: #922B21
-- Accent: Gold (#D4AF37) - Represents reverence and tradition
-  - Light: #F1C40F
-  - Dark: #B7950B
+#### Coffee-Inspired Theme
+- Rich Dark Browns: Represent depth and tradition
+  - Dark Coffee: #362517 (Primary background)
+  - Deeper Brown: #241A13 (Secondary background)
+- Medium Coffee: #8D7361 (Buttons and accents)
+- Creamy Coffee: #B38769 (Highlights and secondary elements)
+- Soft Cream: #D9CFCA (Text and borders)
+- Very Light Cream: #F9F6F242 (Cards and form backgrounds)
+- Light Taupe: #E4DAD0 (Dividers and subtle elements)
 - Supporting Colors:
-  - Background: Light (#F5F6FA) / Dark (#1A1A1A)
-  - Surface: Light (#FFFFFF) / Dark (#2D2D2D)
-  - Text: Light (#2C3E50) / Dark (#ECF0F1)
-  - Status Colors: Error, Success, Warning, Info
+  - Background: Gradient from #362517 to #241A13
+  - Surface: Light creamy white #F9F6F242
+  - Text: Dark on light #362517, Light on dark #D9CFCA
+  - Status Colors: 
+    - Error: #6B2737 (Deep burgundy)
+    - Success: #041B15 (Deep forest green)
+    - Warning: #8B8982 (Warm gray)
+    - Info: #2C4251 (Navy blue-gray)
 
 ### Typography System
 - Primary Font: Playfair Display
@@ -162,17 +166,18 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 - [X] 1.1.2. Set up VS Code with necessary extensions
 - [X] 1.1.3. Initialize Git repository
 - [X] 1.1.4. Configure SupaBase project
-- [X] 1.1.5. Install required dependencies (navigation, UI components)
+- [X] 1.1.5. Install required dependencies (Expo Router, UI components)
 - [X] 1.1.6. Establish project structure and architecture
 - [X] 1.1.7. Create basic Hello World app to verify setup
+- [X] 1.1.8. Migrate from React Navigation to Expo Router
 
 #### Phase 1.2: Authentication System
 
-- [ ] 1.2.1. Design login/sign-up screens
-- [ ] 1.2.2. Implement SupaBase Authentication integration
-- [ ] 1.2.3. Create password reset functionality
-- [ ] 1.2.4. Add email verification process
-- [ ] 1.2.5. Implement secure token storage and session management
+- [X] 1.2.1. Design login/sign-up screens with coffee-inspired color palette
+- [X] 1.2.2. Implement SupaBase Authentication integration
+- [X] 1.2.3. Create password reset functionality
+- [X] 1.2.4. Add email verification process
+- [X] 1.2.5. Implement secure token storage and session management
 - [ ] 1.2.6. Add social authentication options (Google, Facebook)
 
 #### Phase 1.3: User Profiles
