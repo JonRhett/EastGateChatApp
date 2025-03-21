@@ -1,0 +1,5 @@
+name: EGCA
+channels:
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+prefix: /home/jon/.conda/envs/EGCA

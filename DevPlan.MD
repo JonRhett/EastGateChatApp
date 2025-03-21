@@ -7,6 +7,7 @@ This is a detailed and a comprehensive development plan for your church communic
 The EastGate Communication Hub will be built using the following technologies:
 
 - Expo / React Native: For building the mobile app with Skia and Reanimated
+- Jest for rigorous testing
 - Supabase: For backend services including authentication, database, storage, and cloud messaging.
 - Supabase for hosting the web app / admin panel.
 - Expo / React Native Skia: For advanced graphics and animations.
@@ -62,16 +63,16 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 
 #### Phase 1.1: Environment Setup
 
-- [ ] 1.1.1. Create a new Expo project
-- [ ] 1.1.2. Set up VS Code with necessary extensions
-- [ ] 1.1.3. Initialize Git repository
+- [X] 1.1.1. Create a new Expo project
+- [X] 1.1.2. Set up VS Code with necessary extensions
+- [X] 1.1.3. Initialize Git repository
 - [ ] 1.1.4. Configure SupaBase project
 - [ ] 1.1.5. Install required dependencies (navigation, UI components)
 - [ ] 1.1.6. Establish project structure and architecture
 
 #### Phase 1.2: Authentication System
 
-- [ ] 1.2.1. Design login/signup screens
+- [ ] 1.2.1. Design login/sign-up screens
 - [ ] 1.2.2. Implement SupaBase Authentication integration
 - [ ] 1.2.3. Create password reset functionality
 - [ ] 1.2.4. Add email verification process
@@ -85,7 +86,7 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 - [ ] 1.3.3. Add image cropping functionality
 - [ ] 1.3.4. Create profile editing capabilities
 - [ ] 1.3.5. Develop contact information collection forms
-- [ ] 1.3.6. Set up Firestore database schema for user profiles
+- [ ] 1.3.6. Set up Supabase database schema for user profiles
 - [ ] 1.3.7. Implement data validation and sanitization
 
 ### Phase 2: Role-Based Access Control
@@ -163,7 +164,7 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 #### Phase 5.1: Calendar Infrastructure
 
 - [ ] 5.1.1. Design event data model
-- [ ] 5.1.2. Set up Firestore collection for events
+- [ ] 5.1.2. Set up Supabase collection for events
 - [ ] 5.1.3. Implement event creation and management logic
 - [ ] 5.1.4. Create recurring event support
 - [ ] 5.1.5. Add event categories and filtering
