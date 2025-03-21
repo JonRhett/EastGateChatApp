@@ -1,8 +1,15 @@
-# Welcome to your Expo app 👋
+# EastGate Church Communication Hub
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile application for EastGate Church members to connect, communicate, and stay informed.
 
-## Get started
+## Features
+
+- User authentication and profile management
+- Coffee-inspired UI with modern animations
+- File-based navigation with Expo Router
+- Backend powered by Supabase
+
+## Getting Started
 
 1. Install dependencies
 
@@ -10,41 +17,62 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
-
-   ```bash
-    npx expo start
+2. Set up environment variables
+   
+   Create a `.env` file in the root directory with your Supabase credentials:
+   
+   ```
+   SUPABASE_URL=your-supabase-url
+   SUPABASE_ANON_KEY=your-supabase-anon-key
    ```
 
-In the output, you'll find options to open the app in a
+3. Apply database migrations
+   
+   If you have Supabase CLI installed:
+   
+   ```bash
+   bash scripts/apply-migrations.sh
+   ```
+   
+   Otherwise, follow the manual migration guide in `scripts/manual-migration-guide.md`
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+4. Start the development server
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   ```bash
+   npx expo start
+   ```
 
-## Get a fresh project
+## Project Structure
 
-When you're ready, run:
+- **app/**: File-based routing with Expo Router
+- **components/**: Reusable UI components
+- **hooks/**: Custom React hooks
+- **services/**: Supabase service integrations
+- **types/**: TypeScript type definitions
+- **constants/**: App constants and theme configuration
+- **supabase/**: Supabase migrations and configuration
 
-```bash
-npm run reset-project
-```
+## User Profiles
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+The app includes a comprehensive user profile system:
 
-## Learn more
+- Basic information (name, email, etc.)
+- Profile picture upload and management
+- Ministry roles
+- Contact information
 
-To learn more about developing your project with Expo, look at the following resources:
+Profile data is stored in Supabase with appropriate security policies.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Development
 
-## Join the community
+For more detailed information, see:
+- `Scaffold.md` - Project structure overview
+- `DevPlan.MD` - Development plan and roadmap
+- `ThemeDoc.md` - Theme and styling documentation
 
-Join our community of developers creating universal apps.
+## Tech Stack
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **Frontend**: Expo/React Native, TypeScript, Expo Router
+- **UI**: React Native Reanimated, Linear Gradient, Safe Area Context
+- **Backend**: Supabase (Auth, Database, Storage)
+- **State Management**: React Context API and custom hooks

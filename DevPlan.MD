@@ -178,7 +178,8 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 - [X] 1.2.3. Create password reset functionality
 - [X] 1.2.4. Add email verification process
 - [X] 1.2.5. Implement secure token storage and session management
-- [ ] 1.2.6. Add social authentication options (Google, Facebook)
+- [X] 1.2.6. Set up Supabase database schema for user profiles / need binary storage for profile pic implementation 
+- [X] 1.2.7. Add email authentication (respond to email) / and validation checks to email / password.
 
 #### Phase 1.3: User Profiles
 
@@ -186,8 +187,7 @@ The EastGate Communication Hub will serve as a centralized platform for church m
 - [ ] 1.3.2. Implement camera integration for profile photos
 - [ ] 1.3.3. Add image cropping functionality
 - [ ] 1.3.4. Create profile editing capabilities
-- [ ] 1.3.5. Develop contact information collection forms
-- [ ] 1.3.6. Set up Supabase database schema for user profiles
+- [ ] 1.3.5. Develop contact information collection forms (for church directory)
 - [ ] 1.3.7. Implement data validation and sanitization
 
 ### Phase 2: Role-Based Access Control

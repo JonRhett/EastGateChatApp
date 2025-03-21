@@ -49,28 +49,26 @@ export const SignUpScreen = () => {
       setErrorMessage('Last name is required');
       return false;
     }
-    if (!email.trim()) {
-      setErrorMessage('Email is required');
+    
+    // Use the authService email validation
+    const emailValidation = authService.validateEmail(email);
+    if (!emailValidation.valid) {
+      setErrorMessage(emailValidation.message || 'Invalid email');
       return false;
     }
-    // Simple email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage('Please enter a valid email address');
+    
+    // Use the authService password validation
+    const passwordValidation = authService.validatePassword(password);
+    if (!passwordValidation.valid) {
+      setErrorMessage(passwordValidation.message || 'Invalid password');
       return false;
     }
-    if (!password) {
-      setErrorMessage('Password is required');
-      return false;
-    }
-    if (password.length < 6) {
-      setErrorMessage('Password must be at least 6 characters');
-      return false;
-    }
+    
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
       return false;
     }
+    
     return true;
   };
 
@@ -80,26 +78,26 @@ export const SignUpScreen = () => {
 
     setIsLoading(true);
     try {
-      // 1. Create the user account
-      const { user } = await authService.signUp(email, password);
+      // 1. Create the user account - this will trigger the database function 
+      // to automatically create a profile
+      const authData = await authService.signUp(email, password);
       
-      if (user) {
-        // 2. Create user profile with first and last name
+      if (authData?.user) {
+        // 2. Update the profile with first and last name
         const { error: profileError } = await supabase
           .from('profiles')
-          .insert({
-            id: user.id,
+          .update({
             first_name: firstName,
-            last_name: lastName,
-            email: email,
-          });
+            last_name: lastName
+          })
+          .eq('id', authData.user.id);
 
         if (profileError) throw profileError;
 
         Alert.alert(
           'Account Created',
-          'Your account has been created. Please check your email to verify your account.',
-          [{ text: 'OK', onPress: () => router.push('/(auth)/login') }]
+          'Your account has been created. Please check your email to verify your account, then complete your profile.',
+          [{ text: 'Complete Profile', onPress: () => router.push('/(auth)/profile-setup') }]
         );
       }
     } catch (error) {
@@ -116,7 +114,7 @@ export const SignUpScreen = () => {
 
   return (
     <LinearGradient
-      colors={['#362517', '#241A13']} // Rich coffee dark to deeper brown
+      colors={['#2B1D12', '#1A1208']} // Darker rich coffee to very deep brown
       style={[styles.container, { paddingTop: insets.top }]}
     >
       <KeyboardAvoidingView
@@ -313,6 +311,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+    backgroundColor: '#1A1208', // Deeper coffee color for fallback
   },
   keyboardView: {
     flex: 1,

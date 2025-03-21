@@ -115,7 +115,7 @@ export const LoginScreen = () => {
 
   return (
     <LinearGradient
-      colors={['#362517', '#241A13']} // Rich coffee dark to deeper brown
+      colors={['#2B1D12', '#1A1208']} // Darker rich coffee to very deep brown
       style={[styles.container, { paddingTop: insets.top }]}
     >
       <KeyboardAvoidingView
@@ -259,6 +259,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+    backgroundColor: '#1A1208', // Deeper coffee color for fallback
   },
   keyboardView: {
     flex: 1,
